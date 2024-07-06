@@ -130,7 +130,7 @@ entries = [
                 "Any")
 ]
 
-if __name__ == "main":
+if __name__ == "__main__":
     my_report = generate_report(period_entries=entries,
                                 report_start=date(2024, 1, 1),
                                 report_end=date(2024, 5, 31))
