@@ -9,9 +9,10 @@ cursor = connection.cursor()
 
 def add_period_entry(period_entry: PeriodEntry):
     periods_command = ("INSERT INTO periods(date_created, start_date, end_date, category, forecast_rule, calculation,"
-                       " is_forecast)")
+                       " is_forecast)"
+                       "VALUES(?, ?, ?, ?, ?, ?, ?)")
 
-    cursor.execute(periods_command, (datetime.date.today(),
+    cursor.execute(periods_command, (datetime.date.today().strftime("%d/%m/%Y"),
                                      period_entry.work_start,
                                      period_entry.work_end,
                                      period_entry.category,
@@ -19,7 +20,8 @@ def add_period_entry(period_entry: PeriodEntry):
                                      0,
                                      period_entry.category))
 
-    payments_command = "INSERT INTO payments(PeriodID, date_created, net)"
+    payments_command = ("INSERT INTO payments(PeriodID, date_created, net)"
+                        "VALUES(?, ?, ?)")
     payments = period_entry.payments
     items = []
 

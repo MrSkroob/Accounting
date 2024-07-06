@@ -6,7 +6,7 @@ if __name__ == "__main__":
     cursor = connection.cursor()
 
     cursor.execute("CREATE TABLE periods("
-                   "PeriodID PRIMARY KEY, "
+                   "PeriodID INTEGER PRIMARY KEY, "
                    "date_created, "
                    "start_date NUMERIC, "
                    "end_date NUMERIC, "
@@ -15,7 +15,7 @@ if __name__ == "__main__":
                    "calculation REAL, "
                    "is_forecast INTEGER)")
     cursor.execute("CREATE TABLE payments("
-                   "PaymentID PRIMARY KEY, "
+                   "PaymentID INTEGER PRIMARY KEY, "
                    "PeriodID, "
                    "date_created NUMERIC, "
                    "net REAL,"
