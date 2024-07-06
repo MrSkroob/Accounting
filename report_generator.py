@@ -1,5 +1,6 @@
 # from datetime import date
 from datatypes import *
+import database
 
 
 def singular_report(period_entry: PeriodEntry, report_start: date, report_end: date) -> SimplifiedReport:
@@ -134,3 +135,6 @@ if __name__ == "main":
                                 report_start=date(2024, 1, 1),
                                 report_end=date(2024, 5, 31))
     display_report(my_report)
+
+    for i in entries:
+        database.add_period_entry(i)
