@@ -5,19 +5,19 @@ if __name__ == "__main__":
     connection = sqlite3.connect("PE.db")
     cursor = connection.cursor()
 
-    cursor.execute("CREATE TABLE periods("
+    cursor.execute("CREATE TABLE Periods("
                    "PeriodID INTEGER PRIMARY KEY, "
-                   "date_created, "
-                   "start_date NUMERIC, "
-                   "end_date NUMERIC, "
-                   "category TEXT, "
-                   "forecast_rule TEXT, "
-                   "calculation REAL, "
-                   "is_forecast INTEGER)")
-    cursor.execute("CREATE TABLE payments("
+                   "DateCreated, "
+                   "StartDate NUMERIC, "
+                   "EndDate NUMERIC, "
+                   "Category TEXT, "
+                   "ForecastRule TEXT, "
+                   "Calculation REAL, "
+                   "IsForecast INTEGER)")
+    cursor.execute("CREATE TABLE Payments("
                    "PaymentID INTEGER PRIMARY KEY, "
                    "PeriodID, "
-                   "date_created NUMERIC, "
-                   "net REAL,"
-                   "FOREIGN KEY(PeriodID) REFERENCES periods(PeriodID))")
+                   "DateCreated NUMERIC, "
+                   "Net REAL,"
+                   "FOREIGN KEY(PeriodID) REFERENCES Periods(PeriodID))")
     connection.commit()
