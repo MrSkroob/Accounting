@@ -5,7 +5,7 @@ Either: import CSV files (see below) or create an empty database and add things 
 1. Ensure that any "PE.db" does not exist.
 2. Run "init_database.py" once. (located under "Utils")
 
-# If you want to convert a CSV file to a .db file, please do the following:
+# If you want to convert a CSV file to a .db file:
 
 1. Create a ConvertedCSVs folder and ImportedCSVs folder (if they don't exist!) and parent them under the Utils folder. 
 2. Place the CSV you want to convert under "ImportedCSVs".
