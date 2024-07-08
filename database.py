@@ -8,7 +8,8 @@ cursor = connection.cursor()
 
 
 def string_to_date(date_str: str) -> date:
-    return datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
+    print(date_str)
+    return datetime.datetime.strptime(date_str, "%d/%m/%Y").date()
 
 
 def add_period_entry(period_entry: PeriodEntry):
@@ -24,7 +25,7 @@ def add_period_entry(period_entry: PeriodEntry):
                                      0,
                                      period_entry.category))
 
-    payments_command = ("INSERT INTO Payments(PeriodID, DateCreated, Net)"
+    payments_command = ("INSERT INTO Payments(PeriodID, PayDate, Net)"
                         "VALUES(?, ?, ?)")
     payments = period_entry.payments
     items = []
