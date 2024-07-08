@@ -7,3 +7,5 @@
 /.idea/modules.xml
 /.idea/.gitignore
 /test.py
+/Utils/ImportedCSVs/
+/Utils/ConvertedCSVs/
