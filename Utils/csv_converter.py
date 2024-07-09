@@ -2,10 +2,6 @@ import init_database
 import sqlite3
 import csv
 
-PAYMENTS_HEADER = ["PaymentID", "PeriodID", "PayDate", "Net"]
-PERIODS_HEADER = ["PeriodID", "DateCreated", "StartDate", "EndDate",
-                  "Category", "ForecastRule", "Calculation", "IsForecast"]
-
 
 def to_int(data: str):
     if data == "":
@@ -32,7 +28,7 @@ def string_to_type(data: str, data_type: str):
         case "INTEGER":
             return to_int(data)
         case "NUMERIC":
-            return data
+            return to_float(data)
         case "REAL":
             return to_float(data)
         case "TEXT":
@@ -48,12 +44,12 @@ def csv_to_db(csv_path: str, db_type: str):
     cursor.execute("DROP TABLE IF EXISTS " + db_type)
 
     if db_type == "Periods":
-        header = PERIODS_HEADER
+        header = init_database.PERIODS_HEADER
         column_types = init_database.PERIODS_TYPES
         cursor.execute(init_database.PERIODS_TABLE)
     elif db_type == "Payments":
-        header = PAYMENTS_HEADER
-        column_types = init_database.PERIODS_TYPES
+        header = init_database.PAYMENTS_HEADER
+        column_types = init_database.PAYMENTS_TYPES
         cursor.execute(init_database.PAYMENTS_TABLE)
     else:
         raise NotImplementedError("Not implemented " + db_type)
@@ -74,16 +70,18 @@ def csv_to_db(csv_path: str, db_type: str):
                 continue
             data = []
             for i, item in enumerate(row):
-                data.append(string_to_type(item, column_types[i]))
+                try:
+                    data.append(string_to_type(item, column_types[i]))
+                except IndexError:
+                    print("WARNING: More columns received than expected, ignoring")
+                    continue
             values.append(tuple(data))
-
-        print(sql)
 
         cursor.executemany(sql, values)
 
     connection.commit()
 
 
-# csv_to_db("ImportedCSVs/Online training course - Payment.csv",
-#           "Payments")
-csv_to_db("ImportedCSVs/Online training course - Period.csv", "Periods")
+if __name__ == "__main__":
+    csv_to_db("ImportedCSVs/Online training course - Period.csv", "Periods")
+    csv_to_db("ImportedCSVs/Online training course - Payment.csv", "Payments")
