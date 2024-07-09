@@ -81,7 +81,6 @@ def generate_report(period_entries: list[PeriodEntry], report_start: date, repor
 
     big_report = reports[0]
     for i in range(1, len(reports)):
-        print(i)
         big_report = merge_reports(big_report, reports[i])
 
     return big_report
