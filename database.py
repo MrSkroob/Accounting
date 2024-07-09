@@ -8,7 +8,6 @@ cursor = connection.cursor()
 
 
 def string_to_date(date_str: str) -> date:
-    print(date_str)
     return datetime.datetime.strptime(date_str, "%d/%m/%Y").date()
 
 
