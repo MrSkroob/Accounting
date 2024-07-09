@@ -44,12 +44,12 @@ def csv_to_db(csv_path: str, db_type: str):
     cursor.execute("DROP TABLE IF EXISTS " + db_type)
 
     if db_type == "Periods":
-        header = init_database.PERIODS_HEADER
-        column_types = init_database.PERIODS_TYPES
+        header = list(init_database.PERIODS_TYPES.keys())
+        column_types = list(init_database.PERIODS_TYPES.items())
         cursor.execute(init_database.PERIODS_TABLE)
     elif db_type == "Payments":
-        header = init_database.PAYMENTS_HEADER
-        column_types = init_database.PAYMENTS_TYPES
+        header = list(init_database.PAYMENTS_TYPES.keys())
+        column_types = list(init_database.PAYMENTS_TYPES.items())
         cursor.execute(init_database.PAYMENTS_TABLE)
     else:
         raise NotImplementedError("Not implemented " + db_type)
