@@ -12,6 +12,10 @@ def _string_to_date(date_str: str) -> date:
     return datetime.datetime.strptime(date_str, "%d/%m/%Y").date()
 
 
+def _date_to_string(date_: date) -> str:
+    return date_.strftime("%d/%m/%Y")
+
+
 def _key_to_index(dictionary: dict, key: any):
     return list(dictionary.keys()).index(key)
 
@@ -54,9 +58,15 @@ def add_period_entry(period_entry: PeriodEntry):
     connection.commit()
 
 
-def get_period_entries() -> list[PeriodEntry]:
+def get_period_entries(start_date: date = None, end_date: date = None) -> list[PeriodEntry]:
     periods = []
-    cursor.execute("SELECT * FROM Periods")
+    periods_sql = "SELECT * FROM Periods"
+    if start_date is not None and end_date is not None:
+        periods_sql += ("  WHERE StartDate < " +
+                        _date_to_string(end_date) +
+                        " AND StartDate" > _date_to_string(start_date))
+
+    cursor.execute(periods_sql)
     period_entries = cursor.fetchall()
 
     cursor.execute("SELECT * FROM Payments")
