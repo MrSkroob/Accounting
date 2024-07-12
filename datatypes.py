@@ -15,7 +15,7 @@ class PeriodEntry:
     work_end: date
     payments: list[Payment]
     category: str
-    # is_forecast: bool
+    is_forecast: bool
     # forecast_rule: str
 
 

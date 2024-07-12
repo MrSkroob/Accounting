@@ -7,5 +7,7 @@
 /.idea/modules.xml
 /.idea/.gitignore
 /test.py
-/Utils/ImportedCSVs/
-/Utils/ConvertedCSVs/
+/ConvertedCSVS/
+!/ConvertedCSVs/.gitkeep
+/ImportedCSVs/
+!/ImportedCSVs/.gitkeep

@@ -1,4 +1,7 @@
 # from datetime import date
+import datetime
+import database
+
 from datatypes import *
 
 
@@ -81,7 +84,6 @@ def generate_report(period_entries: list[PeriodEntry], report_start: date, repor
 
     big_report = reports[0]
     for i in range(1, len(reports)):
-        print(i)
         big_report = merge_reports(big_report, reports[i])
 
     return big_report
@@ -112,3 +114,25 @@ def display_report(report: SimplifiedReport):
     print("Customer advances:", report.supplier_advances)
     print("Profit in report period: ", report.loss_in_period)
     print("Profit prior to report period:", report.prior_loss_in_period)
+
+
+def generate_report_history(offset: int, time_delta: datetime.timedelta,
+                            initial_date: date = None, using: list[PeriodEntry] = None):
+    if initial_date is None:
+        today = datetime.datetime.today()
+    today = initial_date
+    deadline = today + offset * time_delta
+    is_forecast = offset > 0
+    if is_forecast:
+        raise NotImplementedError("Not implemented forecast yet")
+    else:
+        start_date = deadline
+        end_date = today
+
+    if using is None:
+        period_entries = database.get_period_entries(start_date, end_date)
+    else:
+        period_entries = using
+    return generate_report(period_entries=period_entries,
+                           report_start=start_date,
+                           report_end=end_date)
