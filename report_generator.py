@@ -120,7 +120,8 @@ def generate_report_history(offset: int, time_delta: datetime.timedelta,
                             initial_date: date = None, using: list[PeriodEntry] = None):
     if initial_date is None:
         today = datetime.datetime.today()
-    today = initial_date
+    else:
+        today = initial_date
     deadline = today + offset * time_delta
     is_forecast = offset > 0
     if is_forecast:
