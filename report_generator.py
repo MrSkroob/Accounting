@@ -51,10 +51,8 @@ def singular_report(period_entry: PeriodEntry, report_start: date, report_end: d
             net_payments_made += i.net
 
     supplier_advances = int(max(total_reported_profit - net_payments_made, 0))
-
-    print(current_profit, prior_period_profit)
-
-    report = SimplifiedReport(cash_flow, current_profit, payments_made, payments_made, supplier_advances,
+    amount_payable = -int(min(total_reported_profit - net_payments_made, 0))
+    report = SimplifiedReport(cash_flow, current_profit, payments_made, amount_payable, supplier_advances,
                               current_profit, prior_period_profit)
     return report
 
