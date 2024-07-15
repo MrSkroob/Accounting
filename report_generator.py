@@ -52,6 +52,8 @@ def singular_report(period_entry: PeriodEntry, report_start: date, report_end: d
 
     supplier_advances = int(max(total_reported_profit - net_payments_made, 0))
 
+    print(current_profit, prior_period_profit)
+
     report = SimplifiedReport(cash_flow, current_profit, payments_made, payments_made, supplier_advances,
                               current_profit, prior_period_profit)
     return report
@@ -64,7 +66,7 @@ def merge_reports(report_a: SimplifiedReport, report_b: SimplifiedReport) -> Sim
     amount_payable = report_a.amount_payable + report_b.amount_payable
     supplier_advances = report_a.supplier_advances + report_b.supplier_advances
     loss_in_period = report_a.loss_in_period + report_b.loss_in_period
-    prior_loss_in_period = report_a.loss_in_period + report_b.loss_in_period
+    prior_loss_in_period = report_a.prior_loss_in_period + report_b.prior_loss_in_period
 
     new_report = SimplifiedReport(cash_flow,
                                   expense,
@@ -118,6 +120,7 @@ def display_report(report: SimplifiedReport):
 
 def generate_report_history(offset: int, time_delta: datetime.timedelta,
                             initial_date: date = None, using: list[PeriodEntry] = None):
+    datetime.timedelta()
     if initial_date is None:
         today = datetime.datetime.today()
     else:
@@ -127,11 +130,11 @@ def generate_report_history(offset: int, time_delta: datetime.timedelta,
     if is_forecast:
         raise NotImplementedError("Not implemented forecast yet")
     else:
-        start_date = deadline
-        end_date = today
+        start_date = deadline.date()
+        end_date = today.date()
 
     if using is None:
-        period_entries = database.get_period_entries(start_date, end_date)
+        period_entries = database.get_period_entries()
     else:
         period_entries = using
     return generate_report(period_entries=period_entries,
