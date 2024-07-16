@@ -50,9 +50,9 @@ def singular_report(period_entry: PeriodEntry, report_start: date, report_end: d
             payments_made += i.net
             net_payments_made += i.net
 
-    supplier_advances = int(max(total_reported_profit - net_payments_made, 0))
-    amount_payable = -int(min(total_reported_profit - net_payments_made, 0))
-    report = SimplifiedReport(cash_flow, current_profit, payments_made, amount_payable, supplier_advances,
+    amount_owed_and_owing = int(max(total_reported_profit - net_payments_made, 0))
+
+    report = SimplifiedReport(cash_flow, current_profit, payments_made, amount_owed_and_owing,
                               current_profit, prior_period_profit)
     return report
 
@@ -61,16 +61,14 @@ def merge_reports(report_a: SimplifiedReport, report_b: SimplifiedReport) -> Sim
     cash_flow = report_a.cash_flow + report_b.cash_flow
     expense = report_a.expense + report_b.expense
     payments_sent = report_a.payments_sent + report_b.payments_sent
-    amount_payable = report_a.amount_payable + report_b.amount_payable
-    supplier_advances = report_a.supplier_advances + report_b.supplier_advances
+    amount_owed_and_owing = report_a.amount_owed_and_owing + report_b.amount_owed_and_owing
     loss_in_period = report_a.loss_in_period + report_b.loss_in_period
     prior_loss_in_period = report_a.prior_loss_in_period + report_b.prior_loss_in_period
 
     new_report = SimplifiedReport(cash_flow,
                                   expense,
                                   payments_sent,
-                                  amount_payable,
-                                  supplier_advances,
+                                  amount_owed_and_owing,
                                   loss_in_period,
                                   prior_loss_in_period)
 
@@ -98,8 +96,7 @@ def display_report(report: SimplifiedReport):
     print("Expense: ", report.expense)
     print("---------------------------FINANCIAL STANDING-------------------------------")
     print("Payments sent: ", report.payments_sent)
-    print("Amount payable:", report.amount_payable)
-    print("Supplier advances:", report.supplier_advances)
+    print("Amounts owed and owing:", report.amount_owed_and_owing)
     print("Loss in report period: ", report.loss_in_period)
     print("Loss prior to report period:", report.prior_loss_in_period)
     print("")
@@ -110,8 +107,7 @@ def display_report(report: SimplifiedReport):
     print("Income: ", report.expense)
     print("---------------------------FINANCIAL STANDING-------------------------------")
     print("Payments received: ", report.payments_sent)
-    print("Amounts receivable:", report.amount_payable)
-    print("Customer advances:", report.supplier_advances)
+    print("Amounts owed and owing:", report.amount_owed_and_owing)
     print("Profit in report period: ", report.loss_in_period)
     print("Profit prior to report period:", report.prior_loss_in_period)
 

@@ -24,8 +24,7 @@ class SimplifiedReport:
     cash_flow: int
     expense: int
     payments_sent: int
-    amount_payable: int
-    supplier_advances: int
+    amount_owed_and_owing: int
     loss_in_period: int
     prior_loss_in_period: int
 
